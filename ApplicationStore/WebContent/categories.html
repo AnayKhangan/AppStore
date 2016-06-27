@@ -1,0 +1,95 @@
+<html>
+	<head>
+		<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/navigation.css"></link>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/divEx.js"></script>  -->
+	</head>
+	<body>
+		<div>
+  			<div>
+  				<div ng-show="myDivCtrl.goToCategories">
+  					<span class="pull-right">
+  						<button ng-click="myDivCtrl.goToCategoriesDiv()" type="button" class="btn btn-warning">
+  							Categories
+  						</button>
+  					</span>
+  				</div>
+  			<div ng-show="myDivCtrl.isVisible">
+    		 <!--  <<div class="row">
+    			
+    			<div>
+    				<div class="col-md-6">
+    					<a href="#" data-toggle="tooltip" data-placement="top" title="Databases" class="btn" role="button">
+    					<img src="images/folder1.png" class="img-responsive center-block" alt="folder" style="width:300px;height:300px">
+    					<h1>Databases</h1>
+    					</a>
+    				</div>
+    				<div class="col-md-6">
+    					<a href="#" data-toggle="tooltip" data-placement="top" title="IDEs" class="btn" role="button">
+    					<img src="images/folder1.png" class="img-responsive center-block" alt="folder" style="width:300px;height:300px">
+    					<h1>IDEs</h1>
+    					</a>
+    				</div>
+    			</div>
+    		
+    		</div>
+    		
+    		<div class="row">
+    			
+    			<div>
+    				<div class="col-md-6">
+    					<a href="#" data-toggle="tooltip" data-placement="top" title="Servers" class="btn" role="button">
+    					<img src="images/folder1.png" class="img-responsive center-block" alt="folder" style="width:300px;height:300px">
+    					<h1>Servers</h1>
+    					</a>
+    				</div>
+    				<div class="col-md-6">
+    					<a href="#" data-toggle="tooltip" data-placement="top" title="Data Processing" class="btn" role="button">
+    					<img src="images/folder1.png" class="img-responsive center-block" alt="folder" style="width:300px;height:300px">
+    					<h1>Data Processing</h1>
+    					</a>
+    				</div>
+    			</div>-->
+    			
+    			<div class=row ng-repeat="category in myDivCtrl.categories track by $index" ng-if="$index % 3 == 0">
+  						<div class="col-sm-4" ng-repeat="i in [$index, $index + 1, $index + 2]" ng-if="myDivCtrl.categories[i] != null">
+       						<a ng-click="myDivCtrl.getSoftwares(myDivCtrl.categories[i])" class="btn" role="button">
+    						<img src="http://172.20.75.52/images/applications_folder.png" class="img-responsive center-block" alt="folder" style="width:100px;height:100px"></img>
+    						<!-- <div class="jumbotron"><h3> <font color="white"> <b><i>{{myDivCtrl.categories[i]}}</i></b></font></h3></div> -->
+    						 <button type="button" class="btn btn-default">{{myDivCtrl.categories[i]}}</button>
+    						</a>
+  						</div>
+				</div>
+				
+    		
+  			</div>  
+  			
+  			<!--  <div class=row ng-repeat="letters in alphabet | groupBy:4">
+  				<div class="col-xs-3 letter-box" ng-repeat="letter in letters" >
+    				<div class="jumbotron">Letter {{$index + 1}} is: <b> {{letter}}</b></div>
+  				</div>
+			</div>-->
+			<div ng-hide="myDivCtrl.isVisible">
+			<!-- <div class=row ng-repeat="outer in outer">
+				<div class="col-md-4" ng-repeat="inner in inner" >
+				item
+				</div>
+			</div> -->
+			
+			<div class=row ng-repeat="name in myDivCtrl.names track by $index" ng-if="$index % 3 == 0">
+  				<div class="col-sm-4" ng-repeat="i in [$index, $index + 1, $index + 2]" ng-if="myDivCtrl.names[i] != null">
+       					<a href="/ApplicationStore/DownloadServlet?file={{myDivCtrl.links[i]}}" class="btn" role="button">
+    					<img src="http://172.20.75.52/images/folder2.png" class="img-responsive center-block" alt="folder" style="width:100px;height:100px">
+    					<!-- <div class="jumbotron"><h3> <font color="white"><b><i>{{names[i]}}</i></b> </font></h3></div> -->
+    					<button type="button" class="btn btn-default">{{myDivCtrl.names[i]}}</button>
+    					</a>
+    					
+  				</div> 
+			</div>
+			</div>
+			</div>
+  			</div>
+  	</body>
+  </html>

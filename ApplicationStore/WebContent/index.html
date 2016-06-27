@@ -1,0 +1,179 @@
+<html>
+	<head>
+	<title>GSLAB App Store</title>>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="http://172.20.75.52/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="http://172.20.75.52/css/navigation.css"></link>
+		<script type="text/javascript" src="http://172.20.75.52/js/angular.js"></script>
+		<script type="text/javascript" src="http://172.20.75.52/js/angular-route.js"></script>
+		<script type="text/javascript" src="http://172.20.75.52/js/angular-resource.min.js"></script>
+		<script type="text/javascript" src="http://172.20.75.52/js/ng-file-upload-shim.js"></script>
+		<script type="text/javascript" src="http://172.20.75.52/js/ng-file-upload.js"></script>
+		<script type="text/javascript" src="http://172.20.75.52/js/servletModule.js"></script>
+		<script type="text/javascript" src="http://172.20.75.52/js/divEx.js"></script> 
+		
+		
+	</head>
+	<body background="images/background.jpg">
+		<div ng-app="myServlet">
+			<div ng-controller="MyController as myCtrl">
+			<div ng-controller="MyDivController as myDivCtrl">
+				<div class="page-header">
+					<div class="container-fluid">
+						<div>
+							<img src="http://172.20.75.52/images/gslab.png" class="img-responsive center-block" alt="folder" style="width:300px;height:100px">
+						</div>
+						<span class="pull-right">
+							<a href="/ApplicationStore/LogoutServlet" ng-show="myCtrl.loggedIn" type="button" class="btn btn-danger">Logout</a>
+						</span>
+				
+					</div>
+		
+				</div>
+				<div class="row-fluid">
+		
+					<div class="col-md-4">
+					
+						 <div ng-show="myCtrl.canUpload">
+						 <div class="container-fluid">
+						 <div class="jumbotron">
+						<form name="addCategoryForm" novalidate>
+						<div ng-class="{'has-error': addCategoryForm.addCat.$invalid}">
+							<label for="catName">Category Name:</label>
+							<input class="form-control" type="text" name="addCat" ng-model="myDivCtrl.category" placeholder="Add Category Name" required/>
+							</div>
+						<div ng-class="{'has-error': addCategoryForm.addCatDesc.$invalid}">
+							<label for="catDesc">Description:</label>
+							<textarea class="form-control" rows="5" id="desc" name="addCatDesc" ng-model="myCtrl.category.description" required></textarea>
+							</div>
+							<div ng-show="addCategoryForm.$valid">
+							<button class="btn btn-info"  ng-click="myDivCtrl.addCategory()">Add Category</button>
+							</div> 
+							</form>
+						</div>
+						</div>
+					</div>
+					</div>
+		
+		
+  				<div class="col-md-4" >
+  					<div ng-show="myCtrl.canUpload || myCtrl.canDownload">
+  		
+  		
+  					<div class="container-fluid">
+  					 <div categories>
+  					</div>
+  					</div>
+  					
+  		
+  		</div>
+  		
+</div>
+  		
+  		
+  		
+  		
+  		
+  		<div class="col-md-4">
+    		
+    		<div class="container-fluid">
+		
+				<div class="jumbotron" >
+					<div>
+					<div>
+						<div ng-show="myCtrl.isVisibleLogin">
+						<!--  >form name="loginForm" ng-submit="checkUser()" role="form" novalidate-->
+						<form name="loginForm" novalidate>
+							{{myCtrl.user.invalidUser}}
+			    			<div ng-class="{'has-error': loginForm.id.$invalid}">
+			     	 			<label for="usr">GS-ID:</label>
+			      				<input type="text" class="form-control" name="id" ng-model="myCtrl.user.gsid" required>
+			    			</div>
+			   		 		<div ng-class="{'has-error': loginForm.password.$invalid}">
+			      				<label for="pwd">Password:</label>
+			      				<input type="password" class="form-control" name="password" ng-model="myCtrl.user.password" required>
+			    			</div>
+							<div  class="form-group" ng-show="loginForm.$valid" >
+			      				
+			      				<!-- <input type="submit" class="btn btn-info" value="Submit" id="submit"> -->
+			      				<center>
+			      				<!--  href="#home"-->
+			      					<button class="btn btn-info" ng-click="myDivCtrl.getCategories();myCtrl.checkUser()" role="button">Login</button>
+			      				</center>
+			    			</div>
+			    		</form>
+			    		</div>
+			    		
+			    		
+			    		<div ng-show="myCtrl.canUpload">
+			      			  <!-- <form name="uploadForm" ng-submit="upload(software.file)" novalidate enctype="multipart/form-data"> -->
+			      			<form name="uploadForm" novalidate>
+			      				<div ng-class="{'has-error': uploadForm.name_of_the_software.$invalid}">
+			     	 				<label for="usr">Software Name</label>
+			      					<input type="text" class="form-control" name="name_of_the_software" placeholder="Use LowerCases" ng-model="myCtrl.software.name"required />
+			    				</div>
+			   		 			<div ng-class="{'has-error': uploadForm.version_of_the_software.$invalid}">
+			      					<label for="pwd">Software Version</label>
+			      					<input type="text" class="form-control" name="version_of_the_software" placeholder="Use LowerCases" ng-model="myCtrl.software.version" required />
+			    				</div>
+			    				<div>
+      								<label for="sel">Category:</label>
+      								<select class="form-control" id="sel" name="category_list" ng-model="myCtrl.software.category" ng-options="category for category in myDivCtrl.categories">
+        								<option value=""></option>
+      								</select>
+      							</div>
+			    				<div ng-class="{'has-error': uploadForm.uploaded_by.$invalid}">
+			     	 				<label for="usr">Uploaded By</label>
+			      					<input type="text" class="form-control" name="uploaded_by" ng-model="myCtrl.software.uploaded_by" required />
+			    				</div>
+			   		 			<div ng-class="{'has-error': uploadForm.email_id.$invalid}">
+			      					<label for="email">Email Id</label>
+			      					<input type="email" class="form-control" name="email_id" id="email" placeholder="Email" ng-model="myCtrl.software.email" required />
+			    				</div>
+			    				<div>
+			     	 				<label for="usr">Description</label>
+			      					 <textarea class="form-control" rows="5" id="desc" name="description" ng-model="myCtrl.software.description" required></textarea>
+			    				</div>
+			   		 			<div>
+			      					<label for="pwd">Select file to upload</label>
+			      					<input type="file" ngf-select name="uploadFile" ng-model="myCtrl.file"/>
+			    				</div>
+								<div ng-show="uploadForm.$valid">
+			      					<!-- <input type="submit" class="btn btn-info" value="Upload" id="submit" /> -->
+			      					<center>
+			      					<button class="btn btn-info" ng-click="myCtrl.upload(myCtrl.file)">Upload</button>
+			      					</center>
+			    				</div>
+			    				
+			    				<div ng-show="uploadForm.$valid">
+			    				<div class="progress">
+  									<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="progressPercentage"
+  										aria-valuemin="0" aria-valuemax="100" style="width:{{myCtrl.progressPercentage}}%">
+    										{{myCtrl.progressPercentage}}% Complete
+  									</div>
+  								</div>
+								</div>
+			    				
+            				
+        					</form>
+        					
+        					
+        					
+						</div>
+						<div  ng-show="myCtrl.canDownload">
+							<p>You can only download.</p>
+						</div>
+					</div>
+					
+					</div>
+					
+				</div>
+			</div>
+    		
+  		</div>
+  		</div>
+  		</div>
+	</div>
+	</div>
+</body>
+</html>

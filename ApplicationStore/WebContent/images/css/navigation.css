@@ -1,0 +1,16 @@
+.btn{
+  border:0px solid none; /* this was 1px earlier */
+ }
+ 
+ .form-group {
+    width: 300px;
+}
+.form-group input {
+    width: 300px;
+}
+.background {
+background-color: red;
+}
+.container{
+	width: 450px;
+}
